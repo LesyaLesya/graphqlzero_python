@@ -1,0 +1,8 @@
+# Хранилище тестовых данных
+
+schema:
+  https: 'https'
+  http: 'http'
+
+host:
+  default: 'graphqlzero.almansi.me/api'
