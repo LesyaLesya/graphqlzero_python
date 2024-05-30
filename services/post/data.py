@@ -1,14 +1,7 @@
-"""Модуль с классами с данными для проверок."""
-import json
+"""Модуль с классами с данными для Post."""
 
 
-class ID:
-    @staticmethod
-    def get_id(num):
-        return str(num)
-
-
-class Post:
+class PostData:
     """Посты."""
     POST_1 = {
         'title': 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
@@ -33,21 +26,11 @@ class Post:
                        'non ut eius\nsequi ducimus vel quasi\nveritatis est dolores'}
 
 
-class User:
-    """Юзеры."""
-    USER_1 = {'name': 'Leanne Graham', 'phone': '1-770-736-8031 x56442',
-              'email': 'Sincere@april.biz', 'username': 'Bret', 'website': 'hildegard.org',
-              'address': {'geo': {'lat': -37.3159, 'lng': 81.1496}}}
-    USER_2 = {'name': 'Ervin Howell', 'phone': '010-692-6593 x09125',
-              'email': 'Shanna@melissa.tv', 'username': 'Antonette', 'website': 'anastasia.net',
-              'address': {'geo': {'lat': -43.9509, 'lng': -34.4618}}}
-
-
 class CommentsMeta:
     NULL = None
 
 
-class Comments:
+class CommentsData:
     """Комментарии к постам."""
     COMMENT_1 = {'name': 'id labore ex et quam laborum',
                  'body': 'laudantium enim quasi est quidem magnam voluptate ipsam eos\n'
@@ -93,30 +76,3 @@ class Comments:
                   'body': 'voluptate iusto quis nobis reprehenderit ipsum amet nulla\n'
                           'quia quas dolores velit et non\naut quia necessitatibus\nnostrum '
                           'quaerat nulla et accusamus nisi facilis'}
-
-
-class Errors:
-    @staticmethod
-    def create_post_wout_title(body):
-        return f'Variable \"$input\" got invalid value {{ body: \"{body}\" }}; ' \
-                   f'Field title of required type String! was not provided.'
-
-    @staticmethod
-    def create_post_invalid_title(title):
-        title = json.dumps(title)
-        if title == 'null':
-            return f'Variable "$input" got invalid value {title} at "input.title"; ' \
-                   f'Expected non-nullable type String! not to be {title}.'
-        else:
-            return f'Variable \"$input\" got invalid value {title} at \"input.title\"; ' \
-                   f'Expected type String. String cannot represent a non string value: {title}'
-
-    @staticmethod
-    def invalid_query_post_user():
-        return 'Field \"user\" of type \"User\" must have a selection of subfields. ' \
-               'Did you mean \"user { ... }\"?'
-
-
-class Messages:
-    DELETED_POST = {'msg': {'data': {'deletePost': True}}}
-

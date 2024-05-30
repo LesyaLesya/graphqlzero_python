@@ -1,9 +1,10 @@
 """Модуль с классом Graphql клиента."""
 
 import allure
-import json
 import logging
 import requests
+
+from utils.helpers import Helper as h
 
 
 class GraphqlClient:
@@ -31,16 +32,10 @@ class GraphqlClient:
         """
         url = self._get_url()
         data = {'query': query}
-        if variables:
-            data['variables'] = variables
+        data['variables'] = variables if variables else None
 
-        with allure.step(f'Выполнить query на {url}, data={data}'):
+        with allure.step(f'Выполнить query на {url}, data={data}, variables={variables}'):
             res = self.session.post(url=url, json=data)
-            self.logger.info(f'Метод и урл запроса: {res.request.method} {res.request.url}')
-            self.logger.info(f'Тело запроса: {res.request.body}')
-            try:
-                self.logger.info(f'Тело ответа: {res.json()}')
-            except json.decoder.JSONDecodeError as err:
-                self.logger.error(f'Невалидный json в ответе. Error: {err}')
-                self.logger.info(f'Тело ответа: {res.content}')
+            h.attach_response_to_log(self.logger, res)
+            h.attach_response_to_allure(res)
             return res
